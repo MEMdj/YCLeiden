@@ -62,12 +62,21 @@
             }
         }
         function winnaarSpelerEen(){
-            document.getElementById("deWinnaar").innerHTML = "<b>Gefeliciteerd speler 1!</b>"
+            document.getElementById("deWinnaar").innerHTML = "<b>Gefeliciteerd speler 1!</b>";
+            playMusicWin();
+            setTimeout(restartGame,10000);
         }
         function winnaarSpelerTwee(){
-            document.getElementById("deWinnaar").innerHTML = "<b>Gefeliciteerd speler 2!</b>"
+            document.getElementById("deWinnaar").innerHTML = "<b>Gefeliciteerd speler 2!</b>";
+            playMusicWin();
+            setTimeout(restartGame,10000);
         }
-        function RestartGame(){   
+        function playMusicWin(){
+            var audio = new Audio();
+            audio.src = "VictorySound.mp3";
+            audio.play();
+        }
+        function restartGame(){   
 				window.location = window.location;
 			}
   </script>
@@ -132,7 +141,7 @@
     </table>
     <div id="hallo"><p>Clicks: <a id="aantalKlikken">0</a></p></div>
     <p id="commentaar"><b>Speler 1 is aan de beurt!</b></p>
-    <button type="reset" onclick="RestartGame()">Herstart het spel</button> <!--restart knop-->
+    <button type="reset" onclick="restartGame()">Herstart het spel</button> <!--restart knop-->
     <p id="deWinnaar"><b>Wie heeft er gewonnen?</b></p>
     <button type="button" onclick="winnaarSpelerEen()">Speler1</button>
     <button type="button" onclick="winnaarSpelerTwee()">Speler2</button>
