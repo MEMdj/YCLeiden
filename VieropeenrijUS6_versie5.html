@@ -1,0 +1,139 @@
+<html>
+<head>
+  <style>
+      body{
+          text-align: center;
+      }
+      #vieropeenrij{
+          display: inline-block;
+          border-collapse: collapse;
+          background-color: blue;
+      }
+
+      #vieropeenrij td{
+          border: 5px solid blue;
+            width: 70px;
+            height: 70px;
+
+      }
+
+      .circle{
+          background: white;
+          border-radius: 100%;
+          height: 70px;
+          width: 70px;
+          position: relative;
+      }
+
+  </style>
+
+  <script>
+        function steenaanklikken(vakId){
+          var rij = "" + vakId;
+          rij = rij.charAt(0);
+          var Iddoel = "vakje" + rij + checkOpWelkeHoogte();
+          var teVerkleurenCirkel = document.getElementById(Iddoel);
+          teVerkleurenCirkel.style.backgroundColor = wisselSpeler();
+          var aanDeBeurt = spelerAanZet();
+        }
+        function checkOpWelkeHoogte(){
+          var kleur = document.getElementById("vakje10").style.backgroundColor;
+          if(kleur == 'red'){
+              alert("dit gaat niet");
+          }
+          return 0;
+        }
+        var clicks = 0;
+        function telKlik(){
+            clicks ++;
+            return clicks;
+        }
+        function wisselSpeler(){
+            document.getElementById("aantalKlikken").innerHTML = telKlik();
+            if(clicks % 2 == 0) {
+                return "yellow";
+            }   
+            else{
+                return "red";
+            }
+        }
+        function spelerAanZet(){
+            document.getElementById("commentaar").style.backgroundColor = 'red';
+            document.getElementById("commentaar").innerHTML = "Speler 1"
+            if(clicks % 2 == 0){
+                document.getElementById("commentaar").style.backgroundColor = "yellow";
+                document.getElementById("commentaar").innerHTML = "Speler 2"
+            }
+        }
+        function RestartGame(){   //voorbeeld van refresh website
+				window.location = window.location;
+			}
+  </script>
+</head>
+<body>
+<h1>Vier-op-een-rij</h1>
+    <table id="vieropeenrij">
+        <tr>
+            <td><div class="circle" onclick = steenaanklikken(15) id=vakje15></div></td>
+            <td><div class="circle" onclick = steenaanklikken(25) id=vakje25></div></td>
+            <td><div class="circle" onclick = steenaanklikken(35) id=vakje35></div></td>
+            <td><div class="circle" onclick = steenaanklikken(45) id=vakje45></div></td>
+            <td><div class="circle" onclick = steenaanklikken(55) id=vakje55></div></td>
+            <td><div class="circle" onclick = steenaanklikken(65) id=vakje65></div></td>
+            <td><div class="circle" onclick = steenaanklikken(75) id=vakje75></div></td>
+        </tr>
+        <tr>
+            <td><div class="circle" onclick = steenaanklikken(14) id=vakje14></div></td>
+            <td><div class="circle" onclick = steenaanklikken(24) id=vakje24></div></td>
+            <td><div class="circle" onclick = steenaanklikken(34) id=vakje34></div></td>
+            <td><div class="circle" onclick = steenaanklikken(44) id=vakje44></div></td>
+            <td><div class="circle" onclick = steenaanklikken(54) id=vakje54></div></td>
+            <td><div class="circle" onclick = steenaanklikken(64) id=vakje64></div></td>
+            <td><div class="circle" onclick = steenaanklikken(74) id=vakje74></div></td>
+        </tr>
+        <tr>
+            <td><div class="circle" onclick = steenaanklikken(13) id=vakje13></div></td>
+            <td><div class="circle" onclick = steenaanklikken(23) id=vakje23></div></td>
+            <td><div class="circle" onclick = steenaanklikken(33) id=vakje33></div></td>
+            <td><div class="circle" onclick = steenaanklikken(43) id=vakje43></div></td>
+            <td><div class="circle" onclick = steenaanklikken(53) id=vakje53></div></td>
+            <td><div class="circle" onclick = steenaanklikken(63) id=vakje63></div></td>
+            <td><div class="circle" onclick = steenaanklikken(73) id=vakje73></div></td>
+        </tr>
+        <tr>
+            <td><div class="circle" onclick = steenaanklikken(12) id=vakje12></div></td>
+            <td><div class="circle" onclick = steenaanklikken(22) id=vakje22></div></td>
+            <td><div class="circle" onclick = steenaanklikken(32) id=vakje32></div></td>
+            <td><div class="circle" onclick = steenaanklikken(42) id=vakje42></div></td>
+            <td><div class="circle" onclick = steenaanklikken(52) id=vakje52></div></td>
+            <td><div class="circle" onclick = steenaanklikken(62) id=vakje62></div></td>
+            <td><div class="circle" onclick = steenaanklikken(72) id=vakje72></div></td>
+        </tr>
+        <tr>
+            <td><div class="circle" onclick = steenaanklikken(11) id=vakje11></div></td>
+            <td><div class="circle" onclick = steenaanklikken(21) id=vakje21></div></td>
+            <td><div class="circle" onclick = steenaanklikken(31) id=vakje31></div></td>
+            <td><div class="circle" onclick = steenaanklikken(41) id=vakje41></div></td>
+            <td><div class="circle" onclick = steenaanklikken(51) id=vakje51></div></td>
+            <td><div class="circle" onclick = steenaanklikken(61) id=vakje61></div></td>
+            <td><div class="circle" onclick = steenaanklikken(71) id=vakje71></div></td>
+        </tr>
+        <tr>
+            <td><div class="circle" onclick = steenaanklikken(10) id=vakje10></div></td>
+            <td><div class="circle" onclick = steenaanklikken(20) id=vakje20></div></td>
+            <td><div class="circle" onclick = steenaanklikken(30) id=vakje30></div></td>
+            <td><div class="circle" onclick = steenaanklikken(40) id=vakje40></div></td>
+            <td><div class="circle" onclick = steenaanklikken(50) id=vakje50></div></td>
+            <td><div class="circle" onclick = steenaanklikken(60) id=vakje60></div></td>
+            <td><div class="circle" onclick = steenaanklikken(70) id=vakje70></div></td>
+        </tr>
+    </table>
+    <div id="hallo"><p>Clicks: <a id="aantalKlikken">0</a></p></div>
+    <div id="commentaar">Beurt</div>
+    <button type="reset" onclick="RestartGame()">Herstart het spel</button> <!--restart knop-->
+    <p><details>
+        <summary>Copyright 2019.</summary>
+        <p>This game is created by YoungCapital NEXT. All Rights Reserved.</p>
+    </details></p>
+</body>
+</html>
