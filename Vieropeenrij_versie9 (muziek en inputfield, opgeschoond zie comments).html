@@ -9,14 +9,11 @@
           border-collapse: collapse;
           background-color: blue;
       }
-
       #vieropeenrij td{
           border: 5px solid blue;
             width: 70px;
             height: 70px;
-
       }
-
       .circle{
           background: white;
           border-radius: 100%;
@@ -24,26 +21,45 @@
           width: 70px;
           position: relative;
       }
-
+      #winnaar1{
+          background:red;
+          border: none;
+          padding:10px 24px;
+          font-size: 16px;
+          border-radius: 12px;
+      }
+      #winnaar2{
+          background:yellow;
+          border: none;
+          padding:10px 24px;
+          font-size: 16px;
+          border-radius: 12px;
+      }
   </style>
-
   <script>
-        function steenaanklikken(vakId){
+      window.onload = function(){
+        //document.getElementById("uitkomstSpeler1").innerHTML = localStorage.getItem("SpelerNaam") + " (Rood)"; //UITGEZET DUBBEL
+        //document.getElementById("uitkomstSpeler2").innerHTML = localStorage.getItem("SpelerNaam2") + " (Geel)"; //UITGEZET DUBBEL
+        document.getElementById("winnaar1").innerHTML = localStorage.getItem("SpelerNaam");
+        document.getElementById("winnaar2").innerHTML = localStorage.getItem("SpelerNaam2");
+      }
+      function steenaanklikken(vakId){
           var rij = "" + vakId;
           rij = rij.charAt(0);
-          var Iddoel = "vakje" + rij + checkOpWelkeHoogte();
+          var Iddoel = "vakje" + rij + checkOpWelkeHoogte(rij);
           var teVerkleurenCirkel = document.getElementById(Iddoel);
           teVerkleurenCirkel.style.backgroundColor = wisselSpeler();
           var aanDeBeurt = spelerAanZet();
-        }
-        function checkOpWelkeHoogte(){
-          var kleur = document.getElementById("vakje10").style.backgroundColor;
-          if(kleur == 'red'){
-              alert("dit gaat niet");
+      }
+      var hoogte = [0,0,0,0,0,0,0];
+      function checkOpWelkeHoogte(tiental){
+          var kleur = document.getElementById("vakje" + tiental + hoogte[tiental-1]).style.backgroundColor;
+          if(kleur == 'red'|| kleur == 'yellow'){
+              hoogte[tiental-1]++;
           }
-          return 0;
-        }
-        var clicks = 0;
+          return hoogte[tiental-1];
+      }
+      var clicks = 0;
         function telKlik(){
             clicks ++;
             return clicks;
@@ -59,19 +75,53 @@
         }
         function spelerAanZet(){
             document.getElementById("commentaar").style.backgroundColor = 'red';
-            document.getElementById("commentaar").innerHTML = "Speler 1"
+            document.getElementById("commentaar").innerHTML = localStorage.getItem("SpelerNaam");
             if(clicks % 2 == 0){
                 document.getElementById("commentaar").style.backgroundColor = "yellow";
-                document.getElementById("commentaar").innerHTML = "Speler 2"
+                document.getElementById("commentaar").innerHTML = localStorage.getItem("SpelerNaam2");
             }
         }
-        function RestartGame(){   //voorbeeld van refresh website
+        function RestartGame(){
 				window.location = window.location;
-			}
+            }
+            function naamOpslaanSpeler1(){
+                    var invoerSpeler1 = document.getElementById("input").value;
+                    //document.getElementById("uitkomstSpeler1").innerHTML = invoerSpeler1 + " (Rood)"; //UITGEZET DUBBEL
+                    localStorage.setItem("SpelerNaam", invoerSpeler1);
+                    document.getElementById("winnaar1").innerHTML = localStorage.getItem("SpelerNaam");
+                    //alert("Naam opgeslagen");
+            }
+            function naamOpslaanSpeler2(){
+                    var invoerSpeler2 = document.getElementById("input").value;
+                    //document.getElementById("uitkomstSpeler2").innerHTML = invoerSpeler2 + " (Geel)"; //UITGEZET DUBBEL
+                    localStorage.setItem("SpelerNaam2", invoerSpeler2);
+                    document.getElementById("winnaar2").innerHTML = localStorage.getItem("SpelerNaam2");
+                    //alert("Naam opgeslagen");
+            }
+            function winnaarSpelerEen(){
+            document.getElementById("deWinnaar").innerHTML = "Gefeliciteerd " + localStorage.getItem("SpelerNaam") + "!";
+            deWinnaar.style.color = 'red';
+            playMusicWin(); //NEW
+            setTimeout(RestartGame,20000);
+        }
+        function winnaarSpelerTwee(){
+            document.getElementById("deWinnaar").innerHTML = "Gefeliciteerd " + localStorage.getItem("SpelerNaam2") + "!";
+            deWinnaar.style.color = 'yellow';
+            playMusicWin(); //NEW
+            setTimeout(RestartGame,20000);
+        }
+        function playMusicWin(){ //NEW
+            var audio = new Audio();
+            audio.src = "VictorySound.mp3";
+            audio.play();
+        }
   </script>
 </head>
 <body>
-<h1>Vier-op-een-rij</h1>
+<h1>Vier op een rij</h1>
+<div id="hallo"><p>Clicks: <a id="aantalKlikken">0</a></p></div> <!--Nog Nodig??-->
+<div id="commentaar">Beurt</div> <!--Mooier maken of verplaatsen??-->
+<br>
     <table id="vieropeenrij">
         <tr>
             <td><div class="circle" onclick = steenaanklikken(15) id=vakje15></div></td>
@@ -128,9 +178,21 @@
             <td><div class="circle" onclick = steenaanklikken(70) id=vakje70></div></td>
         </tr>
     </table>
-    <div id="hallo"><p>Clicks: <a id="aantalKlikken">0</a></p></div>
-    <div id="commentaar">Beurt</div>
-    <button type="reset" onclick="RestartGame()">Herstart het spel</button> <!--restart knop-->
+    <br>
+    <h3 id="deWinnaar">Wie heeft er gewonnen?</h3>
+    <button id = "winnaar1" type="button" onclick="winnaarSpelerEen()">speler 1</button> <!--Dit is de nieuwe indicatie van spelers en kleur, oude is dubbel en uitgecommentarieerd-->
+    <button id = "winnaar2" type="button" onclick="winnaarSpelerTwee()">speler 2</button> <!--Dit is de nieuwe indicatie van spelers en kleur, oude is dubbel en uitgecommentarieerd-->
+    <br>
+    <br>
+    <button type="reset" onclick="RestartGame()">Herstart het spel</button> 
+    <br>
+    <br>
+    <!--<div id=uitkomstSpeler1> Speler 1</div>--> <!--DUBBEL dus kan weg net zoals bijbehorende functie elementen-->
+    <!--<div id=uitkomstSpeler2> Speler 2 </div> <br>--> <!--DUBBEL dus kan weg net zoals bijbehorende functie elementen-->
+    <input id= "input" type="text" onfocus="this.value=''" placeholder="Vul hier een naam in"></input> <!--Placeholder en onfocus toegevoegd, legen van inputfield onfocus-->
+    <br>
+    <button onclick=naamOpslaanSpeler1("speler1")> Sla speler 1 op </button>
+    <button onclick=naamOpslaanSpeler2("speler2")> Sla speler 2 op </button> <br>
     <p><details>
         <summary>Copyright 2019.</summary>
         <p>This game is created by YoungCapital NEXT. All Rights Reserved.</p>
